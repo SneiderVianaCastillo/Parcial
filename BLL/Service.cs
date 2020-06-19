@@ -29,7 +29,7 @@ namespace BLL
             {
                 conexion.Open();
 
-                if (repository.BuscarPorIdentificacion(persona.Identificacion) == null && persona.CodigoProveedor == proveedor)
+                if (repository.BuscarPorIdentificacion(persona.Identificacion) == null && persona.CodigoProveedor == proveedor && (persona.ValorAyuda>=200000) && (persona.ValorAyuda <= 200000))
                 {
                         repository.GuardarPersona(persona);
                         contadorBuenos=contadorBuenos+1;
