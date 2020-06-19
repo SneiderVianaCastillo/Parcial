@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.CargarBtn = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -76,6 +77,11 @@
             this.CargarBtn.TabIndex = 4;
             this.CargarBtn.Text = "CARGAR";
             this.CargarBtn.UseVisualStyleBackColor = true;
+            this.CargarBtn.Click += new System.EventHandler(this.CargarBtn_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -101,6 +107,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button CargarBtn;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

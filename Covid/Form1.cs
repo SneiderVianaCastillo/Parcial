@@ -16,5 +16,22 @@ namespace Covid
         {
             InitializeComponent();
         }
+
+        private void CargarBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ruta;
+                this.openFileDialog1.ShowDialog();
+                if (this.openFileDialog1.Equals("") == false)
+                {
+                   ruta=  this.openFileDialog1.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error de la ruta del archivo" + ex.ToString());
+            }
+        }
     }
 }
