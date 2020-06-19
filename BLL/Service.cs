@@ -49,18 +49,20 @@ namespace BLL
             }
             finally { conexion.Close(); }
         }
+        string mensaje;
         public string ConsultarTxt(string ruta, string proveedor)
         {
-            
+           
             try
             {
                 personas= repositoyTXT.Consultar(ruta);
                 foreach (var item in personas)
                 {
-                    Guardar(item, proveedor);
+                     mensaje = Guardar(item, proveedor);
+                   
                 }
-                
-                return "Archivo cargado correctamente";
+
+                return "Archivo cargado correctamente" + mensaje;
             }
             catch(Exception e)
             {

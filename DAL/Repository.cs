@@ -31,7 +31,7 @@ namespace DAL
                 command.Parameters.AddWithValue("@Identificacion", identificacion);
                 dataReader = command.ExecuteReader();
                 dataReader.Read();
-                Persona persona =    DataReaderMapearPersona(dataReader);
+                Persona persona = DataReaderMapearPersona(dataReader);
                 return persona;
             }
         }
@@ -44,8 +44,6 @@ namespace DAL
             persona.Nombre = dataReader.GetString(2);
             persona.Fecha = Convert.ToDateTime( dataReader.GetString(3));
             persona.ValorAyuda = Convert.ToDouble( dataReader.GetString(4));
-            
-
             return persona;
 
         }
