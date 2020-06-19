@@ -54,9 +54,12 @@ namespace BLL
             
             try
             {
-                persona= repositoyTXT.Consultar(ruta);
-
-                Guardar(persona,proveedor);
+                personas= repositoyTXT.Consultar(ruta);
+                foreach (var item in personas)
+                {
+                    Guardar(item, proveedor);
+                }
+                
                 return "Archivo cargado correctamente";
             }
             catch(Exception e)

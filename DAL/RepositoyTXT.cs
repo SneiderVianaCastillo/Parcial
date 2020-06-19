@@ -11,7 +11,7 @@ namespace DAL
     {
         List<Persona> personas = new List<Persona>();
         Persona persona;
-        public Persona Consultar(string ruta)
+        public List<Persona> Consultar(string ruta)
         {
             personas.Clear();
             FileStream SourceStream = new FileStream(ruta, FileMode.OpenOrCreate);
@@ -20,14 +20,14 @@ namespace DAL
             while ((linea = reader.ReadLine()) != null)
             {
                 persona = MapearReporte(linea);
-                
+               
                 personas.Add(persona);
                
             }
             reader.Close();
             SourceStream.Close();
 
-            return persona;
+            return personas;
         }
 
         public int ContarRegistros()
