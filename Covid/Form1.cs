@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using BLL;
+using Entiry;
 namespace Covid
 {
     public partial class Form1 : Form
     {
+        Service service;
         public Form1()
         {
+            service = new Service();
             InitializeComponent();
         }
 
@@ -21,12 +24,15 @@ namespace Covid
         {
             try
             {
-                string ruta;
+                string ruta, mensaje;
                 this.openFileDialog1.ShowDialog();
                 if (this.openFileDialog1.Equals("") == false)
                 {
-                   ruta=  this.openFileDialog1.FileName;
+                   ruta=this.openFileDialog1.FileName;
+                   mensaje= service.ConsultarTxt(ruta);
+                   MessageBox.Show(mensaje);
                 }
+                
             }
             catch (Exception ex)
             {

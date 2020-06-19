@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -12,18 +13,44 @@ namespace DAL
     public class Repository
     {
         List<Persona> personas = new List<Persona>();
-        
+
         SqlConnection connection;
-        string ruta = @"";
+
 
         private readonly SqlConnection _connection;
         public Repository(ConnectionManager connection)
         {
             _connection = connection._conexion;
         }
-       
+        public Persona BuscarPorIdentificacion(string identificacion)
+        {
+            SqlDataReader dataReader;
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = "select Identificacion,Nombre from Persona where Identificacion=:Identificacion";
+                command.Parameters.Add("Identificacion", SqlDbType.NVarChar).Value =identificacion;
+                dataReader = command.ExecuteReader();
+                dataReader.Read();
+                Persona persona =    DataReaderMapearPersona(dataReader);
+                return persona;
+            }
+        }
+        private Persona DataReaderMapearPersona(SqlDataReader dataReader)
+        {
+            if (!dataReader.HasRows) return null;
+            Persona persona = new Persona();
+            persona.Identificacion = dataReader.GetString(0);
+            persona.CodigoProveedor = dataReader.GetString(1);
+            persona.Nombre = dataReader.GetString(2);
+            persona.Fecha = Convert.ToDateTime( dataReader.GetString(3));
+            persona.ValorAyuda = Convert.ToDouble( dataReader.GetString(4));
+            
 
-        public List<Persona> Consultar()
+            return persona;
+
+        }
+
+        public List<Persona> Consultar(string ruta)
         {
             personas.Clear();
             FileStream SourceStream = new FileStream(ruta, FileMode.OpenOrCreate);
@@ -32,7 +59,7 @@ namespace DAL
             while ((linea = reader.ReadLine()) != null)
             {
 
-                Persona persona= MapearReporte(linea);
+                Persona persona = MapearReporte(linea);
                 personas.Add(persona);
             }
             reader.Close();
@@ -49,29 +76,28 @@ namespace DAL
             persona.Identificacion = Datos[1];
             persona.Nombre = Datos[2];
             persona.Fecha = DateTime.Parse(Datos[3]);
-            persona.ValorAyuda =Convert.ToDouble( Datos[4]);
+            persona.ValorAyuda = Convert.ToDouble(Datos[4]);
 
             return persona;
         }
 
-        public void Guardar(List<Persona> personas)
+        public void Guardar(Persona persona)
         {
 
-            foreach (var item in personas)
-            {
-
+            
                 using (var comando = connection.CreateCommand())
                 {
 
                     comando.CommandText = "Insert into Persona  values (@Identificacion,@Proveedor_id,@Nombre,@Fecha,@ValorAyuda)";
-                    comando.Parameters.AddWithValue("@Identificacion", item.Identificacion);
-                    comando.Parameters.AddWithValue("@Proveedor_id", item.CodigoProveedor);
-                    comando.Parameters.AddWithValue("@Nombre", item.Nombre);
-                    comando.Parameters.AddWithValue("@Fecha", item.Fecha);
-                    comando.Parameters.AddWithValue("@ValorAyuda", item.ValorAyuda);
+                    comando.Parameters.AddWithValue("@Identificacion", persona.Identificacion);
+                    comando.Parameters.AddWithValue("@Proveedor_id", persona.CodigoProveedor);
+                    comando.Parameters.AddWithValue("@Nombre", persona.Nombre);
+                    comando.Parameters.AddWithValue("@Fecha", persona.Fecha);
+                    comando.Parameters.AddWithValue("@ValorAyuda", persona.ValorAyuda);
 
                     comando.ExecuteNonQuery();
                 }
-            }
+            
         }
+    }
 }
