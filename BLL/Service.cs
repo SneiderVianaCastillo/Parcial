@@ -11,12 +11,14 @@ namespace BLL
     {
         private readonly ConnectionManager conexion;
         private readonly Repository repository;
+        RepositoyTXT repositoyTXT;
         List<Persona> personas;
         public Service(string connectionString, string providerName)
         {
             conexion = new ConnectionManager(connectionString);
             repository = new Repository(conexion);
             personas = new List<Persona>();
+            repositoyTXT = new RepositoyTXT();
         }
         public string Guardar(Persona persona)
         {        
@@ -43,7 +45,7 @@ namespace BLL
             
             try
             {
-                personas= repository.Consultar(ruta);
+                personas= repositoyTXT.Consultar(ruta);
                 return "Archivo cargado correctamente";
             }
             catch(Exception e)

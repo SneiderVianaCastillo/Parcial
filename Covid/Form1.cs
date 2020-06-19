@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using Entiry;
+
 namespace Covid
 {
     public partial class Form1 : Form
@@ -16,7 +17,7 @@ namespace Covid
         Service service;
         public Form1()
         {
-            service = new Service();
+            service = new Service(ConfigConnection.connectionString, ConfigConnection.ProviderName);
             InitializeComponent();
         }
 
