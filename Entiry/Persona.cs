@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entiry
 {
-    public class Class1
+    public class Persona
     {
     }
 }
