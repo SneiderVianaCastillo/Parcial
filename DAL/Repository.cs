@@ -14,7 +14,7 @@ namespace DAL
     {
         List<Persona> personas = new List<Persona>();
 
-        SqlConnection connection;
+  
 
 
         private readonly SqlConnection _connection;
@@ -56,16 +56,15 @@ namespace DAL
         {
 
             
-                using (var comando = connection.CreateCommand())
+                using (var comando = _connection.CreateCommand())
                 {
 
-                    comando.CommandText = "Insert into Persona  values (@Identificacion,@Proveedor_id,@Nombre,@Fecha,@ValorAyuda)";
+                    comando.CommandText = @"Insert into Persona(Identificacion,Proveedor_id,Nombre,Fecha,ValorAyuda)  values (@Identificacion,@Proveedor_id,@Nombre,@Fecha,@ValorAyuda)";
                     comando.Parameters.AddWithValue("@Identificacion", persona.Identificacion);
                     comando.Parameters.AddWithValue("@Proveedor_id", persona.CodigoProveedor);
                     comando.Parameters.AddWithValue("@Nombre", persona.Nombre);
                     comando.Parameters.AddWithValue("@Fecha", persona.Fecha);
                     comando.Parameters.AddWithValue("@ValorAyuda", persona.ValorAyuda);
-
                     comando.ExecuteNonQuery();
                 }
             
@@ -74,7 +73,7 @@ namespace DAL
         {
 
 
-            using (var comando = connection.CreateCommand())
+            using (var comando = _connection.CreateCommand())
             {
 
                 comando.CommandText = "Insert into Glosas  values (@Identificacion,@Proveedor,@Nombre,@Fecha,@ValorAyuda)";
