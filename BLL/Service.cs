@@ -58,7 +58,8 @@ namespace BLL
                 personas= repositoyTXT.Consultar(ruta);
                 foreach (var item in personas)
                 {
-                     mensaje = Guardar(item, proveedor);
+                  
+                    mensaje = Guardar(item, proveedor);
                    
                 }
 

@@ -32,6 +32,7 @@ namespace DAL
                 dataReader = command.ExecuteReader();
                 dataReader.Read();
                 Persona persona = DataReaderMapearPersona(dataReader);
+                dataReader.Close();
                 return persona;
             }
         }
@@ -64,6 +65,9 @@ namespace DAL
                     comando.Parameters.AddWithValue("@Fecha", persona.Fecha);
                     comando.Parameters.AddWithValue("@ValorAyuda", persona.ValorAyuda);
                     comando.ExecuteNonQuery();
+                    
+
+
                 }
             
         }
