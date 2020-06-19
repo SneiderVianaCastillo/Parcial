@@ -13,6 +13,7 @@ namespace BLL
         private readonly Repository repository;
         RepositoyTXT repositoyTXT;
         List<Persona> personas;
+        Persona persona;
         public Service(string connectionString, string providerName)
         {
             conexion = new ConnectionManager(connectionString);
@@ -20,19 +21,27 @@ namespace BLL
             personas = new List<Persona>();
             repositoyTXT = new RepositoyTXT();
         }
-        public string Guardar(Persona persona)
-        {        
+        public string Guardar(Persona persona,string proveedor)
+        {
+            int contadorBuenos=0;
+            int contadorGlosas = 0;
             try
             {
                 conexion.Open();
 
-                if (repository.BuscarPorIdentificacion(persona.Identificacion) == null)
+                if (repository.BuscarPorIdentificacion(persona.Identificacion) == null && persona.CodigoProveedor == proveedor)
                 {
-                    repository.Guardar(persona);
-                    
-                    return $"Se guardaron los datos de {persona.Nombre} datos satisfactoriamente" ;
+                        repository.GuardarPersona(persona);
+                        contadorBuenos=contadorBuenos+1;
+
+                    return $"Datos GUardados bien"+contadorBuenos.ToString();
                 }
-                return $"La persona ya existe";
+                else
+                {
+                    repository.GuardarGlosas(persona);
+                    contadorGlosas = contadorGlosas + 1;
+                }
+                return $"DATOS CON INCONSITENCIA: "+contadorGlosas.ToString();
             }
             catch (Exception e)
             {
@@ -40,12 +49,14 @@ namespace BLL
             }
             finally { conexion.Close(); }
         }
-        public string ConsultarTxt(string ruta)
+        public string ConsultarTxt(string ruta, string proveedor)
         {
             
             try
             {
-                personas= repositoyTXT.Consultar(ruta);
+                persona= repositoyTXT.Consultar(ruta);
+
+                Guardar(persona,proveedor);
                 return "Archivo cargado correctamente";
             }
             catch(Exception e)
@@ -54,5 +65,10 @@ namespace BLL
             }
            
         }
+        public int ContarRegistros()
+        {
+            return repositoyTXT.ContarRegistros();
+        }
+
     }
 }

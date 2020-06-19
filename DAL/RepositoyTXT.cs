@@ -10,7 +10,8 @@ namespace DAL
    public  class RepositoyTXT
     {
         List<Persona> personas = new List<Persona>();
-        public List<Persona> Consultar(string ruta)
+        Persona persona;
+        public Persona Consultar(string ruta)
         {
             personas.Clear();
             FileStream SourceStream = new FileStream(ruta, FileMode.OpenOrCreate);
@@ -18,15 +19,22 @@ namespace DAL
             string linea = string.Empty;
             while ((linea = reader.ReadLine()) != null)
             {
-
-                Persona persona = MapearReporte(linea);
+                persona = MapearReporte(linea);
+                
                 personas.Add(persona);
+               
             }
             reader.Close();
             SourceStream.Close();
 
-            return personas;
+            return persona;
         }
+
+        public int ContarRegistros()
+        {
+            return personas.Count();
+        }
+        
         private Persona MapearReporte(string linea)
         {
 
@@ -40,5 +48,7 @@ namespace DAL
 
             return persona;
         }
+
+
     }
 }

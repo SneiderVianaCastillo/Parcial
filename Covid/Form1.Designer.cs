@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.EntidadCombo = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.Fechadtp = new System.Windows.Forms.DateTimePicker();
             this.CargarBtn = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
@@ -48,6 +48,10 @@
             // EntidadCombo
             // 
             this.EntidadCombo.FormattingEnabled = true;
+            this.EntidadCombo.Items.AddRange(new object[] {
+            "001",
+            "621",
+            "013"});
             this.EntidadCombo.Location = new System.Drawing.Point(240, 86);
             this.EntidadCombo.Name = "EntidadCombo";
             this.EntidadCombo.Size = new System.Drawing.Size(224, 21);
@@ -62,12 +66,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "FECHA DE CARGUE";
             // 
-            // dateTimePicker1
+            // Fechadtp
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(240, 145);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(224, 20);
-            this.dateTimePicker1.TabIndex = 3;
+            this.Fechadtp.Location = new System.Drawing.Point(240, 145);
+            this.Fechadtp.Name = "Fechadtp";
+            this.Fechadtp.Size = new System.Drawing.Size(224, 20);
+            this.Fechadtp.TabIndex = 3;
+            this.Fechadtp.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // CargarBtn
             // 
@@ -89,7 +94,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 247);
             this.Controls.Add(this.CargarBtn);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.Fechadtp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.EntidadCombo);
             this.Controls.Add(this.label1);
@@ -105,7 +110,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox EntidadCombo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker Fechadtp;
         private System.Windows.Forms.Button CargarBtn;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }

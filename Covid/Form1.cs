@@ -25,13 +25,18 @@ namespace Covid
         {
             try
             {
+                string proveedor;
+                DateTime fecha;
                 string ruta, mensaje;
                 this.openFileDialog1.ShowDialog();
                 if (this.openFileDialog1.Equals("") == false)
                 {
                    ruta=this.openFileDialog1.FileName;
-                   mensaje= service.ConsultarTxt(ruta);
-                   MessageBox.Show(mensaje);
+                   proveedor = EntidadCombo.Text;
+                   fecha =Convert.ToDateTime( Fechadtp.Text);
+                   mensaje= service.ConsultarTxt(ruta,proveedor);
+                   int NRegistros = service.ContarRegistros();
+                   MessageBox.Show("Numero de registro =>"+NRegistros.ToString()+" "+mensaje);
                 }
                 
             }
@@ -39,6 +44,11 @@ namespace Covid
             {
                 MessageBox.Show("error de la ruta del archivo" + ex.ToString());
             }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
